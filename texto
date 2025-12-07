@@ -1,0 +1,3 @@
+instalamos el jwt para la autorizacion y autenticacion
+ npm i -D jsonwebtoken tmabien isntalamos los types npm i -D @types/jsonwebtoken 
+ haremos ahora ajustar nuestro backend para las peticiones
