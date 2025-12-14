@@ -4,9 +4,9 @@ import { body } from 'express-validator'
 import User from './models/User'
 //Permite configuar un objeto con todas las rutas que despues podemos agregar a la app principal server.ts
 
-import { aumentarVisitas, createAccount, getUser, getUserByHandle, getVisitas, login, searchByHandle, updateProfile, uploadImage } from './handlers'
+import { aumentarVisitas, createAccount, getAllUser, getUser, getUserByHandle, getVisitas, login, searchByHandle, updateProfile, uploadImage } from './handlers'
 import { handleInputErrors } from './middleware/validation'
-import { authenticate } from './middleware/auth'
+import { authenticate, authorizePermisos } from './middleware/auth'
 const router = Router()
 
 //Autenticacion y Registro
@@ -38,6 +38,7 @@ router.patch('/user',
     //el middleware
     handleInputErrors,
     authenticate,
+    authorizePermisos('base'),
     updateProfile)
 
 router.post('/user/image', authenticate, uploadImage)
@@ -47,15 +48,20 @@ router.post('/search',
     handleInputErrors,
     searchByHandle
 )
+
+//GET obtener los usuarios
+router.get('/usuarios', authenticate, authorizePermisos('admin'), getAllUser)
 //router dinamico
 router.get('/:handle', getUserByHandle)
 
 //Agregare el router para visitas
 
+
 //GET obtener total de visitas
 router.get('/', getVisitas)
 
-//POST sumar visitas
+
+//POST sumar visitas 
 
 router.post('/sumarVisitas', aumentarVisitas)
 

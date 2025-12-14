@@ -184,6 +184,17 @@ export const getUserByHandle = async (req: Request, res: Response) => {
         return res.status(500).json({ error: error.message })
     }
 }
+//GetAllUser
+export const getAllUser = async (req: Request, res: Response) => {
+    try {
+        const users = await User.find({}, 'handle description image permisos links');
+        res.json(users);
+    } catch (e) {
+        const error = new Error("Hubo un error en cargar los datos")
+        return res.status(500).json({ error: error.message })
+    }
+}
+
 
 //Obtenemos la cantidad de visitas
 

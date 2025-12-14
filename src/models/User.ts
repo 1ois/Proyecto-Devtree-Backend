@@ -8,6 +8,7 @@ export interface IUser extends Document {
     description: string
     image: string
     links: string
+    permisos: [string]
 
 }
 const userShema = new Schema({
@@ -47,6 +48,11 @@ const userShema = new Schema({
     links: {
         type: String,
         default: '[]'
+    },
+    permisos: {
+        type: [String],
+        default: ['base']
+
     }
 })
 //agrege INICIO 
